@@ -1,5 +1,6 @@
 #WM Install Script Created 2023 (Alexander Drummond)
 
+#computers variable needs to be changed to computer you wish to install ACS and Corretto on
 $computers = "W-G92PK93"
 
 $wm_install = "\\f0799p1\share\Systems\ACS 2022\Windows_Application\install_acs_64_allusers - Nordstrom Edition.js"
