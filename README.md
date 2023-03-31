@@ -19,15 +19,7 @@ Change $computers variable to either a single computer name "W-*******" or a lis
 
 ### Optional Modifications
 
-Change $computers variable to equal Get-Content C:\textfile.txt in single line format 
-example: 
-
-Computername
-
-Computername
-
-Computername
-
+Change $computers variable to equal Get-Content C:\textfile.txt in single line format see example txt file
 
 #### Potential Future Additions
 
