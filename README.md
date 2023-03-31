@@ -14,7 +14,7 @@ This script was designed to be ran on remote computers over the network either a
 
 Change $wm_install variable to equal the install path of your sites WM on network drive default path is filler
 
-Change $computers variable to either a single computer name "computername" or a list of computer names "computername, computername, computername*"
+Change $computers variable to either a single computer name "computername" or a list of computer names "computername, computername, computername"
 
 
 ### Optional Modifications
