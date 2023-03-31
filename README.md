@@ -12,12 +12,14 @@ This script was designed to be ran on remote computers over the network either a
 
 ### Mandatory Modifications
 
-Change $wm_install variable to equal the install path of your sites WM on share drive 799 share drive location is the current default
+Change $wm_install variable to equal the install path of your sites WM on network drive default path is filler
+
+Change $computers variable to either a single computer name "W-*******" or a list of computer names "W-******, W-********, W-*******"
 
 
 ### Optional Modifications
 
-Change $comptuers variable to equal Get-Content C:\textfile.txt in single line format 
+Change $computers variable to equal Get-Content C:\textfile.txt in single line format 
 example: 
 
 Computername
