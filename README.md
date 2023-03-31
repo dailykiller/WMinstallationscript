@@ -23,7 +23,9 @@ Change $computers variable to equal Get-Content C:\textfile.txt in single line f
 example: 
 
 Computername
+
 Computername
+
 Computername
 
 
