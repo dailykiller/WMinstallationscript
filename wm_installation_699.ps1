@@ -28,13 +28,13 @@ foreach ($comp in $computers) {
     $connection = Test-Connection -ComputerName $comp -Count 2 -Quiet
     Write-Host "Connected to $comp" -ForegroundColor Green
     start-sleep -seconds 5
-    $y = Invoke-PSSession -ComputerName $comp -Credential $cred
+    $computer_pssession = Invoke-PSSession -ComputerName $comp -Credential $cred
     start-sleep -seconds 5
     if ($connection -eq $true) {
         
         #uninstalls all versions of java/jinitiator
         Write-Host "Uninstalling all versions of Java" -ForegroundColor Yellow
-        Invoke-Command -Session $y -ScriptBlock {
+        Invoke-Command -Session $computer_pssession -ScriptBlock {
             $java_versions = Get-wmiobject -Class win32_product | Where-Object{$_.Name -Match "Java*"}
             foreach ($java in $java_versions) {
                 $java.Uninstall()
@@ -52,7 +52,7 @@ foreach ($comp in $computers) {
         $amazon_corretto = "\\F0799p1\Share\Systems\ACS 2022\amazon-corretto-17.0.6.10.1-windows-x64.msi"
         if ($amazon_corretto_install_location -notcontains "Amazon Corretto") {
             Write-Host "Starting installation of Corretto" -ForegroundColor Yellow
-            Invoke-Command -Session $y -ScriptBlock {Start-Process $using:amazon_corretto -Wait -PassThru -Verbose}
+            Invoke-Command -Session $computer_pssession -ScriptBlock {Start-Process $using:amazon_corretto -Wait -PassThru -Verbose}
             Write-Host "Installed Corretto" -ForegroundColor Green
         }
         else {Write-Host "Amazon Corretto already installed" -ForegroundColor Green}
@@ -71,7 +71,7 @@ foreach ($comp in $computers) {
 #installs ACS if Corretto is installed
 foreach ($comp in $computers) {
     $connection = Test-Connection -ComputerName $comp -Count 1 -Quiet
-    $y = Invoke-PSSession -ComputerName $comp -Credential $cred
+    $computer_pssession = Invoke-PSSession -ComputerName $comp -Credential $cred
     start-sleep -seconds 5
     if ($connection -eq $true) {
         
@@ -83,7 +83,7 @@ foreach ($comp in $computers) {
        if ($wm_install_location -notcontains "acslaunch_win-64.exe") {
             if ($amazon_corretto_install_location -contains "Amazon Corretto") {
                 Write-Host "Starting installation of WM" -ForegroundColor Yellow
-                Invoke-Command -Session $y -ScriptBlock { 
+                Invoke-Command -Session $computer_pssession -ScriptBlock { 
                     Start-Process $using:wm_install -wait -PassThru 
                     Start-Sleep -Seconds 5
                     Write-Host "Installed WM" -ForegroundColor Green
