@@ -37,7 +37,9 @@ foreach ($comp in $computers) {
         Invoke-Command -Session $computer_pssession -ScriptBlock {
             $java_versions = Get-wmiobject -Class win32_product | Where-Object{$_.Name -Match "Java*"}
             foreach ($java in $java_versions) {
-                $java.Uninstall()
+                if ($java -notmatch "Java(TM) 6*" ) {
+                    $java.Uninstall()
+                }
             }
             Write-Host "Uninstalling jinitiator" -ForegroundColor Yellow
             $jinitiator = Get-wmiobject -Class win32_product | Where-Object{$_.Name -Match "J-Initiator"} -ErrorAction Ignore
